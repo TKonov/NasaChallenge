@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGIS.AR", "SharpGIS.AR\SharpGIS.AR.csproj", "{11C1DDD1-B323-4526-8EEC-1EF8066A7E9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARSampleApp", "ARSampleApp\ARSampleApp.csproj", "{F676E855-8890-483F-A5E5-8FFA93416AB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11C1DDD1-B323-4526-8EEC-1EF8066A7E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C1DDD1-B323-4526-8EEC-1EF8066A7E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C1DDD1-B323-4526-8EEC-1EF8066A7E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C1DDD1-B323-4526-8EEC-1EF8066A7E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F676E855-8890-483F-A5E5-8FFA93416AB5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
