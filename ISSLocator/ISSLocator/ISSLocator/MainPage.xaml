@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:ISSLocator.Controls"
+    xmlns:local="clr-namespace:ISSLocator"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -30,6 +31,7 @@
                 </VideoBrush.RelativeTransform>
             </VideoBrush>
         </Grid.Background>-->
+        <local:NotificationPopup x:Name="NotificationPopup"/>
         <controls:ARPanel x:Name="arPanel">
 
 

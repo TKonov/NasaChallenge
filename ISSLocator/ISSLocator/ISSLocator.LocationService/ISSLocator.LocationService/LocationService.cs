@@ -171,6 +171,8 @@ namespace ISSLocator.LocationService
             DateTime time = new DateTime(DateTime.Now.Year, MonthFromString(month), dateNum,
                 timeArr[0], timeArr[1], timeArr[2]);
 
+            time =time.Add(TimeZoneInfo.Local.BaseUtcOffset);
+
             return time;        
         }
 
