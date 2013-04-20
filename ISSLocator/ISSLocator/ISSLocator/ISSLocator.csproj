@@ -69,7 +69,6 @@
     <Compile Include="Controls\ARPanel.cs" />
     <Compile Include="CoordinatesHelper.cs" />
     <Compile Include="DevicesService.cs" />
-    <Compile Include="ISSPosition.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -78,7 +77,6 @@
     <Compile Include="StarData.cs" />
     <Compile Include="StarUtils.cs" />
     <Compile Include="StarViewModel.cs" />
-    <Compile Include="StationStat.cs" />
     <Compile Include="Trig.cs" />
   </ItemGroup>
   <ItemGroup>

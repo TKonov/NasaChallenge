@@ -15,17 +15,22 @@ using System.Device.Location;
 using ISSLocator.Data;
 using System.Xml.Serialization;
 using Microsoft.Phone.Shell;
+using ISSLocator.LocationService;
 
 namespace ISSLocator
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private StarViewModel Model { get; set; }
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
             this.InitializeScene();
+
+            this.Model = new StarViewModel();
         }
 
         private void AddHeadingDots(ARPanel panel)
@@ -55,17 +60,17 @@ namespace ISSLocator
 
         private void PositionStars(ARPanel arPanel, GeoCoordinate coordinates)
         {
-            XmlSerializer ser = new XmlSerializer(typeof(StarData));
-            StarData data;
+            //XmlSerializer ser = new XmlSerializer(typeof(StarData));
+            //StarData data;
 
 
-            using (System.IO.Stream fs = Application.GetResourceStream(new Uri(@"/ISSLocator;component/starOutput.xml", UriKind.Relative)).Stream)
-            {
-                data = (StarData)ser.Deserialize(fs);
+            //using (System.IO.Stream fs = Application.GetResourceStream(new Uri(@"/ISSLocator;component/starOutput.xml", UriKind.Relative)).Stream)
+            //{
+            //    data = (StarData)ser.Deserialize(fs);
 
-            }
+            //}
 
-            foreach (var star in data.Data)
+            foreach (var star in Model.Data.Data)
             {
                 var starBightness = 6 - star.Mag;
                 Color color = StarUtils.GetStarColor(star.Color);
@@ -80,12 +85,12 @@ namespace ISSLocator
             }
         }
 
-
         private void PositionStation(ARPanel arPanel)
         {
-            var startPosition = new ISSPosition { Altitute = 0, Azimuth = 0 };
-            var topPosition = new ISSPosition { Altitute = 10, Azimuth = 90 };
-            var endPosition = new ISSPosition { Altitute = 20, Azimuth = 180 };
+            var forecast = this.Model.Positions[0];
+            var startPosition = forecast.Start;
+            var topPosition = forecast.Top;
+            var endPosition = forecast.End;
 
             var ellipse = new Ellipse { Width = 90, Height = 90, Fill = new SolidColorBrush(Color.FromArgb(100, 200, 0, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
             arPanel.Children.Add(ellipse);
@@ -168,12 +173,6 @@ namespace ISSLocator
             //    var point = new Point(alt, azim);
             //    ARPanel.SetDirection(ellipse, point);
             //}
-
-
-
-
-
-
         }
 
         private void InitializeScene()
@@ -193,6 +192,23 @@ namespace ISSLocator
 
             this.arPanel.Loaded += arPanel_Loaded;
             this.arPanel.Unloaded += arPanel_Unloaded;
+
+
+        }
+
+        private void LoadStationForecast(GeoCoordinate coordiantes)
+        {
+            LocationService.LocationService.GetStationStats(25544, coordiantes.Latitude, coordiantes.Longitude, (s) => PersistStationData(s));
+        }
+
+        private void PersistStationData(List<StationStat> stats)
+        {
+            this.Dispatcher.BeginInvoke(() =>
+                {
+                    this.Model.Positions = stats;
+
+                    PositionStation(this.arPanel);
+                });
         }
 
         void arPanel_Unloaded(object sender, RoutedEventArgs e)
@@ -227,26 +243,14 @@ namespace ISSLocator
             }
         }
 
-        //private void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
-        //{
-        //    switch (e.Status)
-        //    {
-        //        case GeoPositionStatus.Disabled:
-        //            // location is unsupported on this device
-        //            break;
-        //        case GeoPositionStatus.NoData:
-        //            // data unavailable
-        //            break;
-        //    }
-        //}
-
         private void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
             var epl = e.Position.Location;
 
             // this.arPanel.Children.Clear();
             PositionStars(arPanel, epl);
-            PositionStation(this.arPanel);
+
+            this.LoadStationForecast(epl);
         }
     }
 }
