@@ -27,11 +27,52 @@ namespace ISSLocator
         // Constructor
         public MainPage()
         {
+            this.Loaded += MainPage_Loaded;
+
             InitializeComponent();
+
+            this.arPanel.Unloaded += arPanel_Unloaded;
+
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var model = ((App)App.Current).Model as StarViewModel;
+            if (model != null)
+            {
+                this.Model = model;
+            }
+            else
+            {
+                this.Model = new StarViewModel();
+                ((App)App.Current).Model = this.Model;
+            }
 
             this.InitializeScene();
 
-            this.Model = new StarViewModel();
+            var panel = this.arPanel;
+            //For motion to be supported, device needs at least a compass and
+            //an accelerometer. A gyro as well makes the experience much better though
+            if (Microsoft.Devices.Sensors.Motion.IsSupported)
+            {
+                //Warn user that without gyro, the experience isn't as good as it can get
+                if (!Microsoft.Devices.Sensors.Gyroscope.IsSupported)
+                {
+                    LayoutRoot.Children.Add(new TextBlock()
+                    {
+                        Text = "No gyro detected. Experience may be degraded",
+                        TextWrapping = System.Windows.TextWrapping.Wrap,
+                        VerticalAlignment = System.Windows.VerticalAlignment.Bottom
+                    });
+                }
+                //Start the AR PAnel
+                panel.Start();
+            }
+            else //Bummer! 
+            {
+                panel.Visibility = System.Windows.Visibility.Collapsed;
+                MessageBox.Show("Sorry - Motion sensor is not supported on this device");
+            }
         }
 
         private void AddHeadingDots(ARPanel panel)
@@ -61,61 +102,55 @@ namespace ISSLocator
 
         private void PositionStars(ARPanel arPanel, GeoCoordinate coordinates)
         {
-            //XmlSerializer ser = new XmlSerializer(typeof(StarData));
-            //StarData data;
-
-
-            //using (System.IO.Stream fs = Application.GetResourceStream(new Uri(@"/ISSLocator;component/starOutput.xml", UriKind.Relative)).Stream)
-            //{
-            //    data = (StarData)ser.Deserialize(fs);
-
-            //}
-
             foreach (var star in Model.Data.Data)
             {
-                var starBightness = 6 - star.Mag;
-                Color color = StarUtils.GetStarColor(star.Color);
-                var ellipse = new Ellipse { Fill = new SolidColorBrush(color), Width = starBightness, Height = starBightness, Stroke = new SolidColorBrush(color) { Opacity = 0.5 }, StrokeThickness = 1 };
 
-                arPanel.Children.Add(ellipse);
 
                 var point = StarUtils.CalculatePosition(coordinates, star);
 
+                if (point.X > 0)
+                {
+                    var starBightness = 6 - star.Mag;
+                    Color color = StarUtils.GetStarColor(star.Color);
+                    var ellipse = new Ellipse { Fill = new SolidColorBrush(color), Width = starBightness, Height = starBightness, Stroke = new SolidColorBrush(color) { Opacity = 0.5 }, StrokeThickness = 1 };
 
-                ARPanel.SetDirection(ellipse, point);
+                    arPanel.Children.Add(ellipse);
+                    ARPanel.SetDirection(ellipse, point);
+                }
             }
         }
 
         private void PositionStation(ARPanel arPanel)
         {
+            this.Model.Positions = new List<StationStat>(this.Model.Positions.Where(c => c.End.Time > DateTime.Now));
+
             var forecast = this.Model.Positions[0];
             var startPosition = forecast.Start;
             var topPosition = forecast.Top;
             var endPosition = forecast.End;
 
-            var spotData = this.GetSpotData(forecast.Start, forecast.Brightness);
-            var ellipse = new Ellipse { Width = 90, Height = 90, Fill = new SolidColorBrush(Color.FromArgb(100, 0, 200, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
-            arPanel.Children.Add(ellipse);
-            var point = new Point(startPosition.Altitute, startPosition.Azimuth);
-            ARPanel.SetDirection(ellipse, point);
-            ellipse.DataContext = spotData;
-            ellipse.Tap += (s, e) => { NotificationPopup.DataContext = ((Ellipse)s).DataContext; NotificationPopup.Open(); };
+            AddMarker(forecast, startPosition, Color.FromArgb(100, 0, 200, 0));
+            AddMarker(forecast, topPosition, Color.FromArgb(100, 255, 255, 0));
+            AddMarker(forecast, endPosition, Color.FromArgb(100, 200, 0, 0));
+        }
 
-            spotData = this.GetSpotData(forecast.Top, forecast.Brightness);
-            ellipse = new Ellipse { Width = 90, Height = 90, Fill = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
-            arPanel.Children.Add(ellipse);
-            point = new Point(topPosition.Altitute, topPosition.Azimuth);
-            ARPanel.SetDirection(ellipse, point);
-            ellipse.DataContext = spotData;
-            ellipse.Tap += (s, e) => { NotificationPopup.DataContext = ((Ellipse)s).DataContext; NotificationPopup.Open(); };
+        private void AddMarker(StationStat forecast, ISSPosition startPosition, Color color)
+        {
+            SpotData spotData;
+            Rectangle rectangle;
+            Point point;
 
-            spotData = this.GetSpotData(forecast.End, forecast.Brightness);
-            ellipse = new Ellipse { Width = 90, Height = 90, Fill = new SolidColorBrush(Color.FromArgb(100, 200, 0, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
-            arPanel.Children.Add(ellipse);
-            point = new Point(endPosition.Altitute, endPosition.Azimuth);
-            ARPanel.SetDirection(ellipse, point);
-            ellipse.DataContext = spotData;
-            ellipse.Tap += (s, e) => { NotificationPopup.DataContext = ((Ellipse)s).DataContext; NotificationPopup.Open(); };
+            spotData = this.GetSpotData(forecast.Start, forecast.Brightness);
+
+            rectangle = new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
+            var grid = new Grid();
+            arPanel.Children.Add(rectangle);
+
+
+            point = new Point(startPosition.Altitute, startPosition.Azimuth);
+            ARPanel.SetDirection(rectangle, point);
+            rectangle.DataContext = spotData;
+            rectangle.Tap += (s, e) => { NotificationPopup.DataContext = ((FrameworkElement)s).DataContext; NotificationPopup.Open(); };
         }
 
         private SpotData GetSpotData(ISSPosition position, double brightness)
@@ -129,30 +164,34 @@ namespace ISSLocator
             return d;
         }
 
+        private GeoCoordinateWatcher watcher;
+
         private void InitializeScene()
         {
             AddHeadingDots(arPanel);
 
-
-
-            var watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default)
+            if (watcher == null)
             {
-                MovementThreshold = 20
-            };
+                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default)
+                {
+                    MovementThreshold = 500
+                };
 
-            watcher.PositionChanged += watcher_PositionChanged;
-            //  watcher.StatusChanged += this.watcher_StatusChanged;
-            watcher.Start();
-
-            this.arPanel.Loaded += arPanel_Loaded;
-            this.arPanel.Unloaded += arPanel_Unloaded;
-
-
+                watcher.PositionChanged += watcher_PositionChanged;
+                watcher.Start();
+            }
         }
 
         private void LoadStationForecast(GeoCoordinate coordiantes)
         {
-            LocationService.LocationService.GetStationStats(25544, coordiantes.Latitude, coordiantes.Longitude, (s) => PersistStationData(s));
+            if (this.Model.Positions == null)
+            {
+                LocationService.LocationService.GetStationStats(25544, coordiantes.Latitude, coordiantes.Longitude, (s) => PersistStationData(s));
+            }
+            else
+            {
+                PositionStation(this.arPanel);
+            }
         }
 
         private void PersistStationData(List<StationStat> stats)
@@ -172,36 +211,18 @@ namespace ISSLocator
 
         void arPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            var panel = sender as ARPanel;
-            //For motion to be supported, device needs at least a compass and
-            //an accelerometer. A gyro as well makes the experience much better though
-            if (Microsoft.Devices.Sensors.Motion.IsSupported)
-            {
-                //Warn user that without gyro, the experience isn't as good as it can get
-                if (!Microsoft.Devices.Sensors.Gyroscope.IsSupported)
-                {
-                    LayoutRoot.Children.Add(new TextBlock()
-                    {
-                        Text = "No gyro detected. Experience may be degraded",
-                        TextWrapping = System.Windows.TextWrapping.Wrap,
-                        VerticalAlignment = System.Windows.VerticalAlignment.Bottom
-                    });
-                }
-                //Start the AR PAnel
-                panel.Start();
-            }
-            else //Bummer! 
-            {
-                panel.Visibility = System.Windows.Visibility.Collapsed;
-                MessageBox.Show("Sorry - Motion sensor is not supported on this device");
-            }
+
+
+
         }
 
         private void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
             var epl = e.Position.Location;
 
-            // this.arPanel.Children.Clear();
+            this.arPanel.Children.Clear();
+
+            InitializeScene();
             PositionStars(arPanel, epl);
 
             this.LoadStationForecast(epl);
@@ -209,13 +230,13 @@ namespace ISSLocator
 
         private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
         {
-            NotificationUserControl control = new NotificationUserControl();
-            this.LayoutRoot.Children.Add(control);
-            control.DataContext = this.Model;
-             
+            NavigationService.Navigate(new Uri(string.Format("/PassesList.xaml"), UriKind.Relative));
+
+
+
         }
 
-         
+
 
 
     }

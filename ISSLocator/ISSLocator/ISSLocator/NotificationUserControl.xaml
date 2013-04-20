@@ -10,13 +10,179 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
-        <Grid x:Name="LayoutRoot" Background="Black">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="PhoneProgressBarSliderThumb" TargetType="Thumb">
+            <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4"/>
+        </ControlTemplate>
+        <Style x:Key="PhoneProgressBarSliderStyle" TargetType="Slider">
+            <Setter Property="Maximum" Value="3000"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Value" Value="0"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid IsHitTestVisible="False">
+                            <Grid x:Name="HorizontalTemplate">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <RepeatButton x:Name="HorizontalTrackLargeChangeDecreaseRepeatButton" Grid.Column="0" Height="0" Template="{x:Null}"/>
+                                <Thumb x:Name="HorizontalThumb" Grid.Column="1" Foreground="{TemplateBinding Foreground}" Height="4" IsTabStop="False" Template="{StaticResource PhoneProgressBarSliderThumb}"/>
+                                <RepeatButton x:Name="HorizontalTrackLargeChangeIncreaseRepeatButton" Grid.Column="2" Height="0" Template="{x:Null}"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ProgressBarStyle1" TargetType="ProgressBar">
+            <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
+            <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
+            <Setter Property="Maximum" Value="100"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Padding" Value="{StaticResource PhoneHorizontalMargin}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard Duration="00:00:04.4" RepeatBehavior="Forever">
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="IndeterminateRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DeterminateRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Value" Storyboard.TargetName="Slider1">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="1000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="2000"/>
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="3000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetProperty="Value" Storyboard.TargetName="Slider2">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="1000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="2000"/>
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="3000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetProperty="Value" Storyboard.TargetName="Slider3">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="1000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="2000"/>
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="3000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetProperty="Value" Storyboard.TargetName="Slider4">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="1000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="2000"/>
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="3000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetProperty="Value" Storyboard.TargetName="Slider5">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5" Value="1000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <LinearDoubleKeyFrame KeyTime="00:00:02.0" Value="2000"/>
+                                                <EasingDoubleKeyFrame KeyTime="00:00:02.5" Value="3000">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn" Exponent="1"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Slider1">
+                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:02.5" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Slider2">
+                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:02.5" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Slider3">
+                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:02.5" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Slider4">
+                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:02.5" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Slider5">
+                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:02.5" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="DeterminateRoot" Margin="{TemplateBinding Padding}" Visibility="Visible">
+                                <Rectangle x:Name="ProgressBarTrack" Fill="{TemplateBinding Background}" Height="4"/>
+                                <Rectangle x:Name="ProgressBarIndicator" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Left" Height="4"/>
+                            </Grid>
+                            <Border x:Name="IndeterminateRoot" Margin="{TemplateBinding Padding}" Visibility="Collapsed">
+                                <Grid>
+                                    <Slider x:Name="Slider1" Foreground="{TemplateBinding Foreground}" Style="{StaticResource PhoneProgressBarSliderStyle}"/>
+                                    <Slider x:Name="Slider2" Foreground="{TemplateBinding Foreground}" Style="{StaticResource PhoneProgressBarSliderStyle}"/>
+                                    <Slider x:Name="Slider3" Foreground="{TemplateBinding Foreground}" Style="{StaticResource PhoneProgressBarSliderStyle}"/>
+                                    <Slider x:Name="Slider4" Foreground="{TemplateBinding Foreground}" Style="{StaticResource PhoneProgressBarSliderStyle}"/>
+                                    <Slider x:Name="Slider5" Foreground="{TemplateBinding Foreground}" Style="{StaticResource PhoneProgressBarSliderStyle}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
-
+            <local:BrightnessConverter x:Name="brightnessConverter"/>
             <Style TargetType="TextBlock" x:Key="ItemsTextblock">
                 <Setter Property="Width" Value="120"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -27,75 +193,78 @@
             </Style>
             <local:DurationConverter x:Key="converter"/>
             <DataTemplate x:Key="template">
-                <Border BorderBrush="#307FFF" BorderThickness="1">
+                <Border BorderBrush="Black" BorderThickness="0,5,1,5" Margin="0" Padding="0">
+
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <CheckBox Width="55" Background="White"/>
-                            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Start Date :" Grid.Column="1"/>
-                            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="{Binding Start.Time,StringFormat='dd/MM/yyyy'}" Grid.Column="2"/>
-                            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Azimuth :" Grid.Row="0" Grid.Column="3"/>
-                            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="{Binding Start.Azimuth}" Grid.Column="4" Grid.Row="0"/>
-                            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Brightness" Grid.Column="1" Grid.Row="1" />
-                            <ProgressBar Value="{Binding Brightness}"  Foreground="White"  Maximum="100" Minimum="0" Grid.Row="1" Grid.Column="2"/>
-                        </Grid>
-                        <toolkit:ExpanderView BorderThickness="0" IsExpanded="False" Grid.Row="1">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF1E1F1F" Offset="0"/>
+                                <GradientStop Color="#FF292B2B" Offset="0.318"/>
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF4A4D4D" Offset="0.651"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <toolkit:ExpanderView BorderThickness="0" IsExpanded="False"  Margin="0 5 0 5">
                             <toolkit:ExpanderView.Expander>
-                                <Button Content="Details" FontSize="12"/>
-                            </toolkit:ExpanderView.Expander>
-                            <toolkit:ExpanderView.Items>
-                                <Grid Background="#707070">
+                                <Grid Background="Transparent">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="5"/>
                                         <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="5"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="55"/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="90" />
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Starts" Grid.Row="1" Grid.Column="0"/>
-                                    <TextBlock Text="Top" Grid.Row="2" Grid.Column="0"/>
-                                    <TextBlock Text="Ends" Grid.Row="3" Grid.Column="0"/>
-                                    <TextBlock Text="Time" Grid.Row="0" Grid.Column="1"/>
-                                    <TextBlock Text="Azimuth" Grid.Row="0" Grid.Column="2"/>
-                                    <TextBlock Text="Altitute" Grid.Row="0" Grid.Column="3"/>
-                                    <TextBlock Text="Duration" Grid.Row="0" Grid.Column="4"/>
-                                    <TextBlock Text="{Binding Start.Time,StringFormat='hh:mm:ss'}" Grid.Row="1" Grid.Column="1"/>
-                                    <TextBlock Text="{Binding End.Time,StringFormat='hh:mm:ss'}" Grid.Row="2" Grid.Column="1"/>
-                                    <TextBlock Text="{Binding Top.Time,StringFormat='hh:mm:ss'}" Grid.Row="3" Grid.Column="1"/>
 
-                                    <TextBlock Text="{Binding Start.Azimuth}" Grid.Row="1" Grid.Column="2"/>
-                                    <TextBlock Text="{Binding Top.Azimuth}" Grid.Row="2" Grid.Column="2"/>
-                                    <TextBlock Text="{Binding End.Azimuth}" Grid.Row="3" Grid.Column="2"/>
-
-                                    <TextBlock Text="{Binding Start.Altitute}" Grid.Row="1" Grid.Column="3"/>
-                                    <TextBlock Text="{Binding Top.Altitute}" Grid.Row="2" Grid.Column="3"/>
-                                    <TextBlock Text="{Binding End.Altitute}" Grid.Row="3" Grid.Column="3"/>
-
-                                    <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="1" Grid.Column="4"/>
-                                    <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="2" Grid.Column="4"/>
-                                    <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="3" Grid.Column="4"/>
-
+                                    <TextBlock Style="{StaticResource ItemsTextblock}"  Text="{Binding Start.Time,StringFormat='dd/MM/yyyy'}" Grid.Column="1" Grid.Row="1"/>
+                                    <TextBlock Style="{StaticResource ItemsTextblock}"  Text="{Binding Start.Azimuth}" Grid.Column="2" Grid.Row="1"/>
+                                    <ProgressBar Value="{Binding Brightness,Converter={StaticResource brightnessConverter}}"  Style="{StaticResource ProgressBarStyle1}" Foreground="#FFE8FF01" Background="Black"  Maximum="9" Minimum="0"  Grid.Column="3" Grid.Row="1"/>
                                 </Grid>
+                            </toolkit:ExpanderView.Expander>
+                            <toolkit:ExpanderView.Items>
+                                <Border Background="#4A707070" Margin="5">
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Starts" Grid.Row="1" Grid.Column="0"/>
+                                        <TextBlock Text="Top" Grid.Row="2" Grid.Column="0"/>
+                                        <TextBlock Text="Ends" Grid.Row="3" Grid.Column="0"/>
+                                        <TextBlock Text="Time" Grid.Row="0" Grid.Column="1"/>
+                                        <TextBlock Text="Azimuth" Grid.Row="0" Grid.Column="2"/>
+                                        <TextBlock Text="Altitute" Grid.Row="0" Grid.Column="3"/>
+                                        <TextBlock Text="Duration" Grid.Row="0" Grid.Column="4"/>
+                                        <TextBlock Text="{Binding Start.Time,StringFormat='hh:mm:ss'}" Grid.Row="1" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding End.Time,StringFormat='hh:mm:ss'}" Grid.Row="2" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding Top.Time,StringFormat='hh:mm:ss'}" Grid.Row="3" Grid.Column="1"/>
+
+                                        <TextBlock Text="{Binding Start.Azimuth}" Grid.Row="1" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding Top.Azimuth}" Grid.Row="2" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding End.Azimuth}" Grid.Row="3" Grid.Column="2"/>
+
+                                        <TextBlock Text="{Binding Start.Altitute}" Grid.Row="1" Grid.Column="3"/>
+                                        <TextBlock Text="{Binding Top.Altitute}" Grid.Row="2" Grid.Column="3"/>
+                                        <TextBlock Text="{Binding End.Altitute}" Grid.Row="3" Grid.Column="3"/>
+
+                                        <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="1" Grid.Column="4"/>
+                                        <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="2" Grid.Column="4"/>
+                                        <TextBlock Text="{Binding Converter={StaticResource converter}}" Grid.Row="3" Grid.Column="4"/>
+
+                                    </Grid>
+                                </Border>
                             </toolkit:ExpanderView.Items>
                         </toolkit:ExpanderView>
 
@@ -103,8 +272,19 @@
                 </Border>
             </DataTemplate>
         </Grid.Resources>
-      
-        <ItemsControl x:Name="listbox" ItemsSource="{Binding Positions}" ItemTemplate="{StaticResource template}" Background="Black"  BorderThickness="1" />
 
+        <Grid Margin="50 0 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <!--<TextBlock Style="{StaticResource ItemsTextblock}"  Text="Notify"/>-->
+            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Start Date" Grid.Column="1"/>
+            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Azimuth" Grid.Row="0" Grid.Column="2"/>
+            <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Brightness" Grid.Column="3" />
         </Grid>
+        <ItemsControl x:Name="listbox" ItemsSource="{Binding Positions}" ItemTemplate="{StaticResource template}" Background="Black"  BorderThickness="1" Grid.Row="1" />
+    </Grid>
 </UserControl>

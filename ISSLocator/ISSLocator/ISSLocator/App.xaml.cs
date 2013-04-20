@@ -23,6 +23,7 @@ namespace ISSLocator
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
+        public StarViewModel Model { get; set; }
 
         public DevicesService DeviceService { get; private set; }
         /// <summary>

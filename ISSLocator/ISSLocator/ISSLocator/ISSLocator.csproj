@@ -67,7 +67,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrightnessConverter.cs" />
     <Compile Include="Controls\ARPanel.cs" />
+    <Compile Include="Controls\RatingControl.cs" />
     <Compile Include="CoordinatesHelper.cs" />
     <Compile Include="DevicesService.cs" />
     <Compile Include="DurationConverter.cs" />
@@ -79,6 +81,9 @@
     </Compile>
     <Compile Include="NotificationUserControl.xaml.cs">
       <DependentUpon>NotificationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PassesList.xaml.cs">
+      <DependentUpon>PassesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpotData.cs" />
@@ -105,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PassesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
@@ -127,6 +136,9 @@
       <Project>{628F73AC-BAE0-4920-9E74-3F8D7308D566}</Project>
       <Name>ISSLocator.LocationService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
