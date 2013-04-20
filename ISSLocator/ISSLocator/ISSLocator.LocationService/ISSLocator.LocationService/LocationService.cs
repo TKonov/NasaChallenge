@@ -131,7 +131,26 @@ namespace ISSLocator.LocationService
 
         private static double AzimuthFromString(string startAzimuth)
         {
-            return 0.0;
+            switch (startAzimuth.ToLower())
+            {
+                case "n": return 0;
+                case "nne": return 22.5;
+                case "ne": return 45;
+                case "ene": return 67.5;
+                case "e": return 90;
+                case "ese": return 112.5;
+                case "se": return 135;
+                case "sse": return 157.5;
+                case "s": return 180;
+                case "ssw": return 202.5;
+                case "sw": return 225;
+                case "wsw": return 247.5;
+                case "w": return 270;
+                case "wnw": return 292.5;
+                case "nw": return 315;
+                case "nnw": return 337.5;
+                default: return 0;
+            }
         }
 
         private static double AltitudeFromString(string altString)
