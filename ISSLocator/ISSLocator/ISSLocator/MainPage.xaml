@@ -76,8 +76,11 @@
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton x:Name="btnCameraOn" Text="Toggle camera" IconUri="images/camera-black.png"></shell:ApplicationBarIconButton>
+            <!--<shell:ApplicationBarIconButton x:Name="btnCameraOff" Text="Camera off" IconUri="images/camera-light.png"></shell:ApplicationBarIconButton>-->
             <shell:ApplicationBar.MenuItems>
                 <!--<shell:ApplicationBarMenuItem Text="Toggle Camera Output" Click="ToggleCameraOutput_Click_1" />-->
+
                 <shell:ApplicationBarMenuItem Text="Notifications" Click="ApplicationBarMenuItem_Click_1"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
