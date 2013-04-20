@@ -80,6 +80,85 @@ namespace ISSLocator
             }
         }
 
+
+        private void PositionStation(ARPanel arPanel)
+        {
+            var startPosition = new ISSPosition { Altitute = 0, Azimuth = 0 };
+            var topPosition = new ISSPosition { Altitute = 10, Azimuth = 90 };
+            var endPosition = new ISSPosition { Altitute = 20, Azimuth = 180 };
+
+            var length = topPosition.Altitute - startPosition.Altitute;
+            var count = 100;
+            var altStep = length / count;
+
+            var azimLength = Math.Abs(topPosition.Azimuth - startPosition.Azimuth);
+            var startAzim = Math.Min(startPosition.Azimuth, topPosition.Azimuth);
+            var endAzim = Math.Max(startPosition.Azimuth, topPosition.Azimuth);
+            var azimStep = azimLength / count;
+
+            for (int i = 0; i <= count; i++)
+            {
+                var alt = startPosition.Altitute + (altStep * (i * Math.Cos(Trig.DegToRad(startPosition.Altitute + (i * altStep)))));
+                var azim = startAzim + (azimStep * (i * Math.Sin(Trig.DegToRad(startAzim + azimStep*i ))));
+
+                if (azim < 0)
+                {
+                    azim = 360 - azim;
+                }
+
+                var ellipse = new Ellipse { Width = 10, Height = 10, Fill = new SolidColorBrush(Color.FromArgb(150, 200, 0, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
+                arPanel.Children.Add(ellipse);
+                var point = new Point(alt, azim);
+                ARPanel.SetDirection(ellipse, point);
+            }
+
+            length = topPosition.Altitute - endPosition.Altitute;
+            altStep = length / count;
+
+
+            azimLength = Math.Abs(topPosition.Azimuth - endPosition.Azimuth);
+            startAzim = Math.Min(endPosition.Azimuth, topPosition.Azimuth);
+            endAzim = Math.Max(endPosition.Azimuth, topPosition.Azimuth);
+            azimStep = azimLength / count;
+
+            for (int i = 0; i <= count; i++)
+            {
+                var alt = endPosition.Altitute + i * altStep;
+                var azim = endAzim - Math.Asin(Trig.DegToRad(i)) * azimStep;
+
+                if (azim < 0)
+                {
+                    azim = 360 - azim;
+                }
+
+                var ellipse = new Ellipse { Width = 10, Height = 10, Fill = new SolidColorBrush(Color.FromArgb(150, 200, 0, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
+                arPanel.Children.Add(ellipse);
+                var point = new Point(alt, azim);
+                ARPanel.SetDirection(ellipse, point);
+            }
+
+            //for (double alt = topPosition.Altitute; alt > endPosition.Altitute; alt -= 5)
+            //{
+            //    var azim = (topPosition.Azimuth - azimLength / length * alt);
+
+            //    if (azim < 0)
+            //    {
+            //        azim -= 360;
+            //    }
+
+            //    var ellipse = new Ellipse { Width = 50, Height = 50, Fill = new SolidColorBrush(Color.FromArgb(80, 200, 0, 0)), StrokeThickness = 2, Stroke = new SolidColorBrush(Colors.Transparent) };
+            //    arPanel.Children.Add(ellipse);
+            //    var point = new Point(alt, azim);
+            //    ARPanel.SetDirection(ellipse, point);
+            //}
+
+
+
+
+
+
+        }
+
         private void InitializeScene()
         {
             AddHeadingDots(arPanel);
@@ -148,8 +227,9 @@ namespace ISSLocator
         {
             var epl = e.Position.Location;
 
-
+            // this.arPanel.Children.Clear();
             PositionStars(arPanel, epl);
+            PositionStation(this.arPanel);
         }
     }
 }
