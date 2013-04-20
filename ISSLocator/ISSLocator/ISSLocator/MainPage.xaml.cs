@@ -16,6 +16,7 @@ using ISSLocator.Data;
 using System.Xml.Serialization;
 using Microsoft.Phone.Shell;
 using ISSLocator.LocationService;
+using System.Windows.Controls.Primitives;
 
 namespace ISSLocator
 {
@@ -205,5 +206,17 @@ namespace ISSLocator
 
             this.LoadStationForecast(epl);
         }
+
+        private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
+        {
+            NotificationUserControl control = new NotificationUserControl();
+            this.LayoutRoot.Children.Add(control);
+            control.DataContext = this.Model;
+             
+        }
+
+         
+
+
     }
 }

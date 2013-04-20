@@ -74,12 +74,13 @@
         </controls:ARPanel>
 
     </Grid>
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar StateChanged="ApplicationBar_StateChanged_1">
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Toggle Camera Output" Click="ToggleCameraOutput_Click_1" />
+                <!--<shell:ApplicationBarMenuItem Text="Toggle Camera Output" Click="ToggleCameraOutput_Click_1" />-->
+                <shell:ApplicationBarMenuItem Text="Notifications" Click="ApplicationBarMenuItem_Click_1"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

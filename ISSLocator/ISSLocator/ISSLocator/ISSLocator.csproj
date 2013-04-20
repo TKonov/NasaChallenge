@@ -50,6 +50,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Devices.Sensors" />
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Graphics" />
@@ -69,11 +70,15 @@
     <Compile Include="Controls\ARPanel.cs" />
     <Compile Include="CoordinatesHelper.cs" />
     <Compile Include="DevicesService.cs" />
+    <Compile Include="DurationConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NotificationPopup.xaml.cs">
       <DependentUpon>NotificationPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationUserControl.xaml.cs">
+      <DependentUpon>NotificationUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpotData.cs" />
@@ -95,6 +100,10 @@
     <Page Include="NotificationPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NotificationUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
