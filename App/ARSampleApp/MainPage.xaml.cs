@@ -181,7 +181,6 @@ namespace ARSampleApp
             CoordinatesHelper.ConvEquToHor(coordinates.Longitude, ha, star.Dec, ref alt, ref  azim);
 
             return new Point(alt, azim);
-
         }
 
         //private static Point CalculatePosition(GeoCoordinate coordinates, Star star)
