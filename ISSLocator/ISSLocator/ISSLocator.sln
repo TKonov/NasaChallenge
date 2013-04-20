@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISSLocator", "ISSLocator\ISSLocator.csproj", "{0EAEBDAB-1C75-45FB-951E-C38FB5551C00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISSLocator.LocationService", "ISSLocator.LocationService\ISSLocator.LocationService\ISSLocator.LocationService.csproj", "{628F73AC-BAE0-4920-9E74-3F8D7308D566}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0EAEBDAB-1C75-45FB-951E-C38FB5551C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EAEBDAB-1C75-45FB-951E-C38FB5551C00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EAEBDAB-1C75-45FB-951E-C38FB5551C00}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{628F73AC-BAE0-4920-9E74-3F8D7308D566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{628F73AC-BAE0-4920-9E74-3F8D7308D566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{628F73AC-BAE0-4920-9E74-3F8D7308D566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{628F73AC-BAE0-4920-9E74-3F8D7308D566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
