@@ -11,8 +11,8 @@
 
     <Grid x:Name="NotificationPanel" Visibility="Collapsed">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="Info" Margin="5">
             <TextBlock>
@@ -25,8 +25,11 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5">
-            <TextBlock Text="Brightness"/>
-            <ProgressBar Value="5" Maximum="9" Minimum="0" Margin="5"/>
+            <TextBlock>
+                <Run>Brightness</Run>
+                <Run Text="{Binding Brightness}" />
+            </TextBlock>
+            <ProgressBar Value="{Binding Brightness}" Maximum="9" Minimum="0" Margin="5"/>
             <TextBlock>
                 <Run>Time remaining</Run>
                 <Run Text="{Binding TimeRemaining}" />
