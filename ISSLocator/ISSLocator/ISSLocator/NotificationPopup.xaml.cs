@@ -13,26 +13,31 @@ namespace ISSLocator
 {
     public partial class NotificationPopup : UserControl
     {
-        private DispatcherTimer timer;
+      //  private DispatcherTimer timer;
 
         public NotificationPopup()
         {
             InitializeComponent();
-            timer = new DispatcherTimer();
-            timer.Tick += timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 5);
+        //    timer = new DispatcherTimer();
+        //    timer.Tick += timer_Tick;
+        //    timer.Interval = new TimeSpan(0, 0, 5);
         }
 
         public void Open()
         {
             NotificationPanel.Visibility = Visibility.Visible;
-            timer.Start();
+           // timer.Start();
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        public void Close()
         {
             NotificationPanel.Visibility = Visibility.Collapsed;
-            timer.Stop();
         }
+
+        //void timer_Tick(object sender, EventArgs e)
+        //{
+        //    NotificationPanel.Visibility = Visibility.Collapsed;
+        //    timer.Stop();
+        //}
     }
 }

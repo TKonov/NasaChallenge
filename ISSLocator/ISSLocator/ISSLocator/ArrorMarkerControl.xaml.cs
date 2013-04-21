@@ -21,7 +21,15 @@ namespace ISSLocator
 
         void ArrorMarkerControl_Loaded(object sender, RoutedEventArgs e)
         {
+
           //  Storyboard1.Begin();
+            this.AddHandler(FrameworkElement.TapEvent, new EventHandler<System.Windows.Input.GestureEventArgs>(Grid_Tap_1), true);
+        }
+
+
+        private void Grid_Tap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
         }
     }
 }

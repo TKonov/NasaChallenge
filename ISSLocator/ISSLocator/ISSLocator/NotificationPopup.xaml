@@ -10,7 +10,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
 
-    <Grid x:Name="NotificationPanel" Visibility="Collapsed">
+    <Grid x:Name="NotificationPanel" Visibility="Collapsed" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>

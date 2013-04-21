@@ -15,7 +15,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" >
         <Grid.Resources>
             <SolidColorBrush Color="#4A2BA3FF" x:Name="PointersColor"/>
         </Grid.Resources>
@@ -31,10 +31,10 @@
         </VideoBrush.RelativeTransform>
         </VideoBrush>
         </Grid.Background>-->
-        <local:NotificationPopup x:Name="NotificationPopup"/>
+        <local:NotificationPopup x:Name="NotificationPopup"  IsHitTestVisible="False"/>
         <Grid>
-            <local:NavigationArrowControl x:Name="NavigationArrow" Opacity="0.8" Height="52.5" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 50, 0,0 "/>
-            <controls:ARPanel x:Name="arPanel">
+            <local:NavigationArrowControl  x:Name="NavigationArrow" Opacity="0.8" Height="52.5" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 50, 0,0 "/>
+            <controls:ARPanel x:Name="arPanel"  >
 
                 <!--North horizontal pointer-->
                 <Grid controls:ARPanel.Direction="0,0">
@@ -72,7 +72,7 @@
                     <TextBlock Text="Nadir" Margin="15"  Opacity="0.6"/>
                 </Grid>
             </controls:ARPanel>
-            <TextBlock x:Name="ProgressTextBlock"/>
+            <TextBlock x:Name="ProgressTextBlock" IsHitTestVisible="False"/>
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>

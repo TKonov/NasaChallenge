@@ -8,39 +8,24 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
-	<UserControl.Resources>
-        <Storyboard x:Name="Storyboard1" RepeatBehavior="Forever">
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="path">
-				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-99"/>
-			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="path1">
-				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-99"/>
-			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="path2">
-				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="-99"/>
-			</DoubleAnimationUsingKeyFrames>
-		</Storyboard>
-	</UserControl.Resources>
-    
+    <Grid Background="Transparent" Tap="Grid_Tap_1">
     <StackPanel x:Name="LayoutRoot" Background="Transparent">
-    	<Path x:Name="path" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20 120 20 20"  Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+    	<Path x:Name="path" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20 120 20 20"  Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" >
     		<Path.RenderTransform>
     			<CompositeTransform/>
     		</Path.RenderTransform>
     	</Path>
-        <Path x:Name="path1" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20"  Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+        <Path x:Name="path1" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20"  Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" >
         	<Path.RenderTransform>
         		<CompositeTransform/>
         	</Path.RenderTransform>
         </Path>
-        <Path x:Name="path2" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+        <Path x:Name="path2" Data="M173.333,472 L310,470.667 L240,319.999" Fill="#C400FF00" Height="60" Width="80" Margin="20" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top">
         	<Path.RenderTransform>
         		<CompositeTransform/>
         	</Path.RenderTransform>
         </Path>
 
     </StackPanel>
+    </Grid>
 </UserControl>

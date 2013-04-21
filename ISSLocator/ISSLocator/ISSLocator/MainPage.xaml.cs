@@ -34,7 +34,10 @@ namespace ISSLocator
 
             this.arPanel.Unloaded += arPanel_Unloaded;
 
+
         }
+
+
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -90,12 +93,34 @@ namespace ISSLocator
                 myCompass.CurrentValueChanged += new System.EventHandler<SensorReadingEventArgs<CompassReading>>((s, args) =>
                 {
                     // This will update the current heading value. We have to put it in correct direction
-                    Deployment.Current.Dispatcher.BeginInvoke(() => { this.CurrentHeading = args.SensorReading.TrueHeading; });
+                    Deployment.Current.Dispatcher.BeginInvoke(() => { this.CurrentHeading = args.SensorReading.TrueHeading; this.UpdateTooltip(); });
                     UpdateNavigationArrow();
+
                 });
 
                 // Start receiving data from compass sensor
                 myCompass.Start();
+            }
+        }
+
+        private void UpdateTooltip()
+        {
+            if (this.Model != null && this.Model.Positions != null)
+            {
+                var pos = this.Model.Positions[0];
+
+                var point = new Point(pos.Start.Altitute, pos.Start.Azimuth);
+
+                if (this.arPanel.IsInView(point))
+                {
+                    var spotData = this.GetSpotData(pos.Start, pos.Brightness);
+
+                    NotificationPopup.DataContext = spotData; NotificationPopup.Open();
+                }
+                else
+                {
+                    NotificationPopup.Close();
+                }
             }
         }
 
@@ -180,7 +205,10 @@ namespace ISSLocator
             point = new Point(startPosition.Altitute, startPosition.Azimuth);
             ARPanel.SetDirection(rectangle, point);
             rectangle.DataContext = spotData;
-            rectangle.Tap += (s, e) => { NotificationPopup.DataContext = ((FrameworkElement)s).DataContext; NotificationPopup.Open(); };
+            //rectangle.Tap += (s, e) =>
+            //{
+
+            //};
         }
 
         private SpotData GetSpotData(ISSPosition position, double brightness)
@@ -258,6 +286,7 @@ namespace ISSLocator
             var epl = e.Position.Location;
 
             this.arPanel.Children.Clear();
+
 
             InitializeScene();
             PositionStars(arPanel, epl);
