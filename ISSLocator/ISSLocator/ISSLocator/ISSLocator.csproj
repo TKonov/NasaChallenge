@@ -146,6 +146,8 @@
     <Content Include="images\camera-light.png" />
     <Content Include="images\ok-light.png" />
     <Content Include="images\ok.png" />
+    <Content Include="lib\Microsoft.Phone.Controls.Toolkit.dll" />
+    <Content Include="Licences\ARPanel licence.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="starOutput.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -157,9 +159,7 @@
       <Name>ISSLocator.LocationService</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="lib\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

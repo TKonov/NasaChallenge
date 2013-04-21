@@ -16,12 +16,12 @@ namespace ISSLocator
         {
             InitializeComponent();
 
-            this.Loaded += ArrorMarkerControl_Loaded;
+          //  this.Loaded += ArrorMarkerControl_Loaded;
         }
 
         void ArrorMarkerControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Storyboard1.Begin();
+          //  Storyboard1.Begin();
         }
     }
 }

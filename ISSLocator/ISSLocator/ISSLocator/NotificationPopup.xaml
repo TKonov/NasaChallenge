@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ISSLocator"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -14,6 +15,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <local:BrightnessConverter x:Key="BrightnessConverter"/>
+        </Grid.Resources>
         <StackPanel x:Name="Info" Margin="5">
             <TextBlock>
                 <Run>Azumith</Run>
@@ -29,7 +33,7 @@
                 <Run>Brightness</Run>
                 <Run Text="{Binding Brightness}" />
             </TextBlock>
-            <ProgressBar Value="{Binding Brightness}" Maximum="9" Minimum="0" Margin="5"/>
+            <ProgressBar Value="{Binding Brightness,Converter={StaticResource BrightnessConverter}}" Maximum="9" Minimum="0" Margin="5"/>
             <TextBlock>
                 <Run>Time remaining</Run>
                 <Run Text="{Binding TimeRemaining}" />

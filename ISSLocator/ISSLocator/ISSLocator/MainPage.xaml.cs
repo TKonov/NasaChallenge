@@ -129,21 +129,27 @@ namespace ISSLocator
             var topPosition = forecast.Top;
             var endPosition = forecast.End;
 
+            //  double angle = GetPositionAngle(forecast, startPosition);
             AddMarker(forecast, startPosition, Color.FromArgb(100, 0, 200, 0));
             AddMarker(forecast, topPosition, Color.FromArgb(100, 255, 255, 0));
             AddMarker(forecast, endPosition, Color.FromArgb(100, 200, 0, 0));
         }
 
+        //private double GetPositionAngle(StationStat forecast, ISSPosition position)
+        //{
+
+        //}
+
         private void AddMarker(StationStat forecast, ISSPosition startPosition, Color color)
         {
             SpotData spotData;
-           // ArrorMarkerControl rectangle;
+            // ArrorMarkerControl rectangle;
             Point point;
 
             spotData = this.GetSpotData(forecast.Start, forecast.Brightness);
 
-         //   var rectangle = new ArrorMarkerControl { Width = 120, Height = 450 }; // new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
-            var rectangle =new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
+            var rectangle = new ArrorMarkerControl { Width = 120, Height = 450 }; // new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
+            //   var rectangle =new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
             arPanel.Children.Add(rectangle);
 
 
@@ -158,9 +164,15 @@ namespace ISSLocator
             SpotData d = new SpotData();
             d.Altitute = position.Altitute;
             d.Azimuth = position.Azimuth;
-            d.Brightness = 6 - brightness;
+            d.Brightness = brightness;
             d.StartTime = position.Time;
-            d.TimeRemaining = DateTime.Now - position.Time;
+            d.TimeRemaining = position.Time - DateTime.Now;
+
+            if (d.TimeRemaining < TimeSpan.Zero)
+            {
+                d.TimeRemaining = TimeSpan.Zero;
+            }
+
             return d;
         }
 
