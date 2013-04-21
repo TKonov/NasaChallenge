@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Scheduler;
+using ISSLocator.LocationService;
 
 namespace ISSLocator
 {
@@ -16,6 +18,21 @@ namespace ISSLocator
         {
             InitializeComponent();
      
+        }
+
+        private void SubsribeAlarm(object sender, RoutedEventArgs e)
+        {
+            var sliderValue = this.alarmSlider.Value;
+            List<StationStat> stationStatCollection = ((sender as Button).DataContext as List<StationStat>);
+            foreach (var item in stationStatCollection)
+            {
+                DateTime stationStart = (DateTime)(item as StationStat).Start.Time;
+                Alarm alarm = new Alarm("Alarm");
+                alarm.BeginTime = stationStart.AddMinutes(-sliderValue);
+                alarm.ExpirationTime = alarm.BeginTime.AddMinutes(5);
+                ScheduledActionService.Add(alarm);
+            }
+
         }
     }
 }
