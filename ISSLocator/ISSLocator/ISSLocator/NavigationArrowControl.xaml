@@ -7,9 +7,18 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="30" d:DesignWidth="20">
-    
+    d:DesignHeight="52.5" d:DesignWidth="50">
+
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Path Data="M0.375,30 L10,0.375 L19.875,30 L10.25,20.25" Fill="#FF0CFD00" Stroke="Transparent"/>
+        <Canvas x:Name="ContentPanel" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Width="52.5" Height="52.5">
+            <Canvas.Projection>
+                <PlaneProjection/>
+            </Canvas.Projection>
+            <Canvas.RenderTransform>
+                <CompositeTransform Rotation="0"/>
+            </Canvas.RenderTransform>
+            <Ellipse Stroke ="#FF1EEA14"  StrokeThickness="4" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" Canvas.Top="2.5"/>
+            <Ellipse Fill="Red" HorizontalAlignment="Left" Height="10" Opacity="0.8" VerticalAlignment="Top" Width="10" Canvas.Left="20"/>
+        </Canvas>
     </Grid>
 </UserControl>

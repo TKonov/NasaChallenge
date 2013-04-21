@@ -33,6 +33,7 @@
         </Grid.Background>-->
         <local:NotificationPopup x:Name="NotificationPopup"/>
         <Grid>
+            <local:NavigationArrowControl x:Name="NavigationArrow" Opacity="0.8" Height="52.5" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 50, 0,0 "/>
             <controls:ARPanel x:Name="arPanel">
 
                 <!--North horizontal pointer-->
@@ -71,7 +72,7 @@
                     <TextBlock Text="Nadir" Margin="15"  Opacity="0.6"/>
                 </Grid>
             </controls:ARPanel>
-            <local:NavigationArrowControl x:Name="NavigationArrow" Margin="50, 50, 0, 0" Opacity="0.8"/>
+            <TextBlock x:Name="ProgressTextBlock"/>
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
