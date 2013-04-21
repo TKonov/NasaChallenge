@@ -17,6 +17,7 @@ using System.Xml.Serialization;
 using Microsoft.Phone.Shell;
 using ISSLocator.LocationService;
 using System.Windows.Controls.Primitives;
+using Microsoft.Devices.Sensors;
 
 namespace ISSLocator
 {
@@ -37,6 +38,8 @@ namespace ISSLocator
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            this.ProgressTextBlock.Text = "Loading...";
+
             var model = ((App)App.Current).Model as StarViewModel;
             if (model != null)
             {
@@ -72,6 +75,27 @@ namespace ISSLocator
             {
                 panel.Visibility = System.Windows.Visibility.Collapsed;
                 MessageBox.Show("Sorry - Motion sensor is not supported on this device");
+            }
+
+            if (Compass.IsSupported)
+            {
+                // If compass sensor is supported create new compass object and attach event handlers
+                Compass myCompass = new Compass();
+                myCompass.TimeBetweenUpdates = System.TimeSpan.FromMilliseconds(100); // This defines how often heading is updated
+                //myCompass.Calibrate += new System.EventHandler<CalibrationEventArgs>((s, e) =>
+                //{
+                //    // This will show the calibration screen
+                //    //this.IsCalibrationNeeded = true;
+                //});
+                myCompass.CurrentValueChanged += new System.EventHandler<SensorReadingEventArgs<CompassReading>>((s, args) =>
+                {
+                    // This will update the current heading value. We have to put it in correct direction
+                    Deployment.Current.Dispatcher.BeginInvoke(() => { this.CurrentHeading = args.SensorReading.TrueHeading; });
+                    UpdateNavigationArrow();
+                });
+
+                // Start receiving data from compass sensor
+                myCompass.Start();
             }
         }
 
@@ -209,11 +233,12 @@ namespace ISSLocator
         private void PersistStationData(List<StationStat> stats)
         {
             this.Dispatcher.BeginInvoke(() =>
-                {
-                    this.Model.Positions = stats;
+            {
+                this.Model.Positions = stats;
+                this.ProgressTextBlock.Text = "";
 
-                    PositionStation(this.arPanel);
-                });
+                PositionStation(this.arPanel);
+            });
         }
 
         void arPanel_Unloaded(object sender, RoutedEventArgs e)
@@ -243,13 +268,32 @@ namespace ISSLocator
         private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri(string.Format("/PassesList.xaml"), UriKind.Relative));
-
-
-
         }
 
+        private void UpdateNavigationArrow()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                if (this.Model != null && this.Model.Positions != null)
+                {
+                    this.AdjustNavigationArrowDirection();
+                }
+            });
+        }
 
+        private void AdjustNavigationArrowDirection()
+        {
+            if (this.arPanel.FirsVectorInView != null)
+            {
+                var angle = this.Model.Positions[0].Start.Azimuth - this.CurrentHeading;
 
+                this.NavigationArrow.ContentPanel.RenderTransform = new RotateTransform()
+                {
+                    Angle = angle
+                };
+            }
+        }
 
+        public double CurrentHeading { get; set; }
     }
 }
