@@ -289,7 +289,7 @@
         </Grid>
         <ItemsControl x:Name="listbox" ItemsSource="{Binding Positions}" ItemTemplate="{StaticResource template}" Background="Black"  BorderThickness="1" Grid.Row="1" />
         <StackPanel Grid.Row="2">
-            <Slider Minimum="5" SmallChange="5" LargeChange="5"  Maximum="60" x:Name="alarmSlider" ValueChanged="alarmSlider_ValueChanged_1"/>
+            <Slider Minimum="0" SmallChange="5" LargeChange="5"  Maximum="60" x:Name="alarmSlider" Value="15" ValueChanged="alarmSlider_ValueChanged_1"/>
             <TextBlock>
                 <Run Text="{Binding Value,ElementName=alarmSlider}"/>
                 <Run> minutes</Run>
