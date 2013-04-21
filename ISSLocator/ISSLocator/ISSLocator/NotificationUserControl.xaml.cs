@@ -30,7 +30,14 @@ namespace ISSLocator
                 Alarm alarm = new Alarm(string.Format("Nasa ISS pass with {0} brightness.", (item as StationStat).Brightness));
                 alarm.BeginTime = stationStart.AddMinutes(-sliderValue);
                 alarm.ExpirationTime = alarm.BeginTime.AddMinutes(5);
-                ScheduledActionService.Add(alarm);
+
+                //ScheduledActionService.Add(alarm);
+                var action = ScheduledActionService.GetActions<Alarm>().FirstOrDefault(x=>x.Name == alarm.Name);
+                if (action == null)
+                {
+                    ScheduledActionService.Add(alarm);
+                    MessageBox.Show(string.Format("Alarm set for {0}\nExpiration time: {1}\n", alarm.BeginTime, alarm.ExpirationTime));
+                }
             }
 
         }
