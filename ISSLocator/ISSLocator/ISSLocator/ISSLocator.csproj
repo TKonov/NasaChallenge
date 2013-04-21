@@ -67,6 +67,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ArrorMarkerControl.xaml.cs">
+      <DependentUpon>ArrorMarkerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrightnessConverter.cs" />
     <Compile Include="Controls\ARPanel.cs" />
     <Compile Include="Controls\RatingControl.cs" />
@@ -98,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="ArrorMarkerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

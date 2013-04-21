@@ -137,13 +137,13 @@ namespace ISSLocator
         private void AddMarker(StationStat forecast, ISSPosition startPosition, Color color)
         {
             SpotData spotData;
-            Rectangle rectangle;
+           // ArrorMarkerControl rectangle;
             Point point;
 
             spotData = this.GetSpotData(forecast.Start, forecast.Brightness);
 
-            rectangle = new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
-            var grid = new Grid();
+         //   var rectangle = new ArrorMarkerControl { Width = 120, Height = 450 }; // new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
+            var rectangle =new Rectangle { Width = 90, Height = 90, RadiusX = 90, RadiusY = 60, Fill = new SolidColorBrush(color) };
             arPanel.Children.Add(rectangle);
 
 
