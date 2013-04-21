@@ -17,7 +17,7 @@ namespace ISSLocator
         public NotificationUserControl()
         {
             InitializeComponent();
-     
+
         }
 
         private void SubsribeAlarm(object sender, RoutedEventArgs e)
@@ -27,12 +27,25 @@ namespace ISSLocator
             foreach (var item in stationStatCollection)
             {
                 DateTime stationStart = (DateTime)(item as StationStat).Start.Time;
-                Alarm alarm = new Alarm("Alarm");
+                Alarm alarm = new Alarm(string.Format("Nasa ISS pass with {0} brightness.", (item as StationStat).Brightness));
                 alarm.BeginTime = stationStart.AddMinutes(-sliderValue);
                 alarm.ExpirationTime = alarm.BeginTime.AddMinutes(5);
                 ScheduledActionService.Add(alarm);
             }
 
+        }
+
+        private bool valueChanging;
+
+        private void alarmSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var slider = sender as Slider;
+            if (!valueChanging && slider != null)
+            {
+                valueChanging = true;
+                slider.Value = Math.Round(e.NewValue * 10) / 10;
+                valueChanging = false;
+            }
         }
     }
 }

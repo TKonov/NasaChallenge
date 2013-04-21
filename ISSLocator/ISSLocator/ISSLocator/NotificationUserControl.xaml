@@ -180,6 +180,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
             <local:BrightnessConverter x:Name="brightnessConverter"/>
@@ -279,7 +280,7 @@
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="90" />
                 <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>    
+            </Grid.ColumnDefinitions>
 
             <!--<TextBlock Style="{StaticResource ItemsTextblock}"  Text="Notify"/>-->
             <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Start Date" Grid.Column="1"/>
@@ -287,7 +288,13 @@
             <TextBlock Style="{StaticResource ItemsTextblock}"  Text="Brightness" Grid.Column="3" />
         </Grid>
         <ItemsControl x:Name="listbox" ItemsSource="{Binding Positions}" ItemTemplate="{StaticResource template}" Background="Black"  BorderThickness="1" Grid.Row="1" />
-        <Slider Minimum="5" Maximum="60" SmallChange="5" x:Name="alarmSlider"/>
-        <Button DataContext="{Binding Positions}" HorizontalAlignment="Right" Content="Set Alarm" Click="SubsribeAlarm" x:Name="alarmButton"/>
+        <StackPanel Grid.Row="2">
+            <Slider Minimum="5" SmallChange="5" LargeChange="5"  Maximum="60" x:Name="alarmSlider" ValueChanged="alarmSlider_ValueChanged_1"/>
+            <TextBlock>
+                <Run Text="{Binding Value,ElementName=alarmSlider}"/>
+                <Run> minutes</Run>
+            </TextBlock>
+            <Button DataContext="{Binding Positions}" HorizontalAlignment="Right" Content="Set Alarm" Click="SubsribeAlarm" x:Name="alarmButton"/>
+        </StackPanel>
     </Grid>
 </UserControl>
