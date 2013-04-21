@@ -171,7 +171,7 @@ namespace ISSLocator.LocationService
             DateTime time = new DateTime(DateTime.Now.Year, MonthFromString(month), dateNum,
                 timeArr[0], timeArr[1], timeArr[2]);
 
-            time =time.Add(TimeZoneInfo.Local.BaseUtcOffset);
+            //time =time.Add(TimeZoneInfo.Local.BaseUtcOffset);
 
             return time;        
         }
@@ -258,7 +258,7 @@ namespace ISSLocator.LocationService
             sb.Append(longitude);
             sb.Append("&loc=");
             sb.Append(location);
-            sb.Append("&alt=0&tz=UCT");
+            sb.Append("&alt=0&tz=EET");
 
             Uri uri = null;
 
