@@ -20,59 +20,59 @@
             <SolidColorBrush Color="#4A2BA3FF" x:Name="PointersColor"/>
         </Grid.Resources>
         <!--<Grid.Background>
-            <VideoBrush x:Name="viewfinderBrush">
-                <VideoBrush.RelativeTransform>
-                    <CompositeTransform
-          x:Name="viewfinderTransform"
-          CenterX="0.5"
-          CenterY="0.5" Rotation="90">
+        <VideoBrush x:Name="viewfinderBrush">
+        <VideoBrush.RelativeTransform>
+        <CompositeTransform
+        x:Name="viewfinderTransform"
+        CenterX="0.5"
+        CenterY="0.5" Rotation="90">
 
-                    </CompositeTransform>
-                </VideoBrush.RelativeTransform>
-            </VideoBrush>
+        </CompositeTransform>
+        </VideoBrush.RelativeTransform>
+        </VideoBrush>
         </Grid.Background>-->
         <local:NotificationPopup x:Name="NotificationPopup"/>
-        <controls:ARPanel x:Name="arPanel">
+        <Grid>
+            <controls:ARPanel x:Name="arPanel">
 
+                <!--North horizontal pointer-->
+                <Grid controls:ARPanel.Direction="0,0">
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="N" Margin="15" Opacity="0.6"/>
+                </Grid>
 
-            <!--North horizontal pointer-->
-            <Grid controls:ARPanel.Direction="0,0">
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="N" Margin="15" Opacity="0.6"/>
-            </Grid>
+                <!--South horizontal pointer-->
+                <Grid controls:ARPanel.Direction="0,180" >
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="S" Margin="15" Opacity="0.6"/>
+                </Grid>
 
-            <!--South horizontal pointer-->
-            <Grid controls:ARPanel.Direction="0,180" >
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="S" Margin="15" Opacity="0.6"/>
-            </Grid>
+                <!--West horizontal pointer-->
+                <Grid controls:ARPanel.Direction="0,270" >
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="W" Margin="15" Opacity="0.6"/>
+                </Grid>
 
-            <!--West horizontal pointer-->
-            <Grid controls:ARPanel.Direction="0,270" >
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="W" Margin="15" Opacity="0.6"/>
-            </Grid>
+                <!--East horizontal pointer-->
+                <Grid controls:ARPanel.Direction="0,90">
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="E" Margin="15" Opacity="0.6"/>
+                </Grid>
 
-            <!--East horizontal pointer-->
-            <Grid controls:ARPanel.Direction="0,90">
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="E" Margin="15" Opacity="0.6"/>
-            </Grid>
+                <!--Up pointer-->
+                <Grid controls:ARPanel.Direction="90,0">
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="Zenith" Margin="15"  Opacity="0.6"/>
+                </Grid>
 
-            <!--Up pointer-->
-            <Grid controls:ARPanel.Direction="90,0">
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="Zenith" Margin="15"  Opacity="0.6"/>
-            </Grid>
-
-            <!--Down pointer-->
-            <Grid controls:ARPanel.Direction="-90,0">
-                <Ellipse Fill="{StaticResource PointersColor}" />
-                <TextBlock Text="Nadir" Margin="15"  Opacity="0.6"/>
-            </Grid>
-
-        </controls:ARPanel>
-
+                <!--Down pointer-->
+                <Grid controls:ARPanel.Direction="-90,0">
+                    <Ellipse Fill="{StaticResource PointersColor}" />
+                    <TextBlock Text="Nadir" Margin="15"  Opacity="0.6"/>
+                </Grid>
+            </controls:ARPanel>
+            <local:NavigationArrowControl x:Name="NavigationArrow" Margin="50, 50, 0, 0" Opacity="0.8"/>
+        </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar>
